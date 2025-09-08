@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from 'next/font/local'
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import { ThemeProvider } from "@/components/theme-provider"
 
 const vazir = localFont({
   src: '../../public/fonts/vazir/Vazir-Medium-FD-WOL.woff2',
@@ -19,14 +20,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fa" dir="rtl">
+    <html lang="fa" dir="rtl" suppressHydrationWarning>
       <body
         className={`${vazir.className} antialiased`}
       >
-        <Navbar />
-        <main className="overflow-x-hidden w-full h-full">
-          {children}
-        </main>
+        <ThemeProvider
+          attribute="class"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navbar />
+          <main className="overflow-x-hidden w-full h-full">
+            {children}
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   );

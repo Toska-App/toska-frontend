@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import localFont from 'next/font/local'
 import "./globals.css";
+import Navbar from "@/components/Navbar";
 
 const vazir = localFont({
-  src: '/public/fonts/vazir/Vazir-Medium-FD-WOL.woff2',
+  src: '../../public/fonts/vazir/Vazir-Medium-FD-WOL.woff2',
   display: 'swap',
-  style: 'normal',
 })
 
 export const metadata: Metadata = {
@@ -19,11 +19,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="fa" dir="rtl">
       <body
         className={`${vazir.className} antialiased`}
       >
-        {children}
+        <Navbar />
+        <main className="overflow-x-hidden w-full h-full">
+          {children}
+        </main>
       </body>
     </html>
   );

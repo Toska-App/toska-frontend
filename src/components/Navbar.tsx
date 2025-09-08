@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import MaxWidthWrapper from "./MaxWidthWrapper"
 import Logo from "../../public/images/logo/logo.svg"
@@ -12,6 +12,22 @@ import { Input } from "@/components/ui/input"
 
 export default function Navbar() {
     const [isSearching, setIsSearching] = useState(false)
+    const serchRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        if (!isSearching) return;
+
+        const handleClickOutside = (e: MouseEvent) => {
+            if (serchRef.current && !serchRef.current.contains(e.target as Node)) {
+                setIsSearching(false)
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside)
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside)
+        }
+    }, [isSearching])
 
     return (
         <nav className="w-full sticky inset-x-0 top-0 pt-2 h-13 bg-white z-50 shadow-sm">
@@ -29,7 +45,7 @@ export default function Navbar() {
                     )}
 
                     {isSearching ? (
-                        <div className="absolute inset-0 mt-4.75 flex items-center px-1">
+                        <div ref={serchRef} className="absolute inset-0 mt-4.75 flex items-center px-1">
                             <div className="flex items-center w-full relative">
                                 <Search size={20} strokeWidth={1.5} className="absolute right-3 text-blue-400" />
                                 <Input autoFocus className="w-full pl-3 pr-10 rounded-md bg-zinc-100 focus-visible:ring-1 focus-visible:ring-blue-400 placeholder:text-sm" placeholder="جستجو ..." />

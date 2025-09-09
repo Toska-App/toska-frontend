@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import MaxWidthWrapper from "./MaxWidthWrapper"
 import Logo from "../../public/images/logo/logo.svg"
-import { BellRing, Menu, Search, Sun, X, Moon, Laptop } from "lucide-react"
+import { BellRing, Menu, Search, Sun, X, Moon, Laptop, User, Mail, LockKeyhole, LogOut } from "lucide-react"
 import Link from "next/link"
 import IR from "../../public/images/IR.svg"
 import EN from "../../public/images/EN.svg"
@@ -52,6 +52,7 @@ export default function Navbar() {
     const handleRemoveNotification = (id: number) => {
         setNotifications((prev) => prev.filter((n) => n.id !== id))
     }
+
 
     useEffect(() => {
         if (!isSearching) return;
@@ -203,10 +204,54 @@ export default function Navbar() {
                                 </DropdownMenuContent>
                             </DropdownMenu>
 
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <div className="transition-all cursor-pointer">
+                                        <Image src={UserProfile} className="rounded-full w-9 h-9 grayscale-50 hover:grayscale-0" alt="profile" width={36} height={36} />
+                                    </div>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="start" className="w-56 p-2 shadow-lg rounded-lgl" style={{ direction: "rtl" }}>
+                                    <DropdownMenuItem className="px-2 py-1 focus:bg-transparent cursor-default">
+                                        <div className="flex items-center gap-3">
+                                            <Image src={UserProfile} className="rounded-lg w-10 h-10 object-cover" width={40} height={40} alt="profile" />
+                                            <div className="flex flex-col">
+                                                <span className="text-[13px] font-medium">محمد متین علی اکبری</span>
+                                                <span className="text-[12px] text-zinc-500">example@gmail.com</span>
+                                            </div>
+                                        </div>
+                                    </DropdownMenuItem>
 
-                            <div className="transition-all cursor-pointer ">
-                                <Image src={UserProfile} className="rounded-full w-9 grayscale-50 hover:grayscale-0 h-auto" alt="profile" />
-                            </div>
+                                    <div className="space-y-2 mt-4">
+                                        <DropdownMenuItem asChild>
+                                            <Link href="/profile" className="w-full flex items-center cursor-pointer gap-2 px-2 py-2">
+                                                <User className="mr-2 h-4 w-4" />
+                                                <span className="text-[13px] text-gray-700 dark:text-gray-400">پروفایل</span>
+                                            </Link>
+                                        </DropdownMenuItem>
+
+                                        <DropdownMenuItem asChild>
+                                            <Link href="/mailbox" className="w-full flex items-center cursor-pointer gap-2 px-2 py-2">
+                                                <Mail className="mr-2 h-4 w-4" />
+                                                <span className="text-[13px] text-gray-700 dark:text-gray-400">صندوق ورودی</span>
+                                            </Link>
+                                        </DropdownMenuItem>
+
+                                        <DropdownMenuItem asChild>
+                                            <Link href="/lockscreen" className="w-full flex items-center cursor-pointer gap-2 px-2 py-2">
+                                                <LockKeyhole className="mr-2 h-4 w-4" />
+                                                <span className="text-[13px] text-gray-700 dark:text-gray-400">قفل صفحه</span>
+                                            </Link>
+                                        </DropdownMenuItem>
+
+                                        <DropdownMenuItem asChild className="border-t border-zinc-200 cursor-pointer dark:border-zinc-700 pt-2">
+                                            <Link href="/logout" className="w-full flex items-center gap-2 px-2 ">
+                                                <LogOut className="mr-2 h-4 w-4 text-red-500 dark:text-red-400" />
+                                                <span className="text-[13px] text-red-400 dark:text-red-400">خروج</span>
+                                            </Link>
+                                        </DropdownMenuItem>
+                                    </div>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
                         </div>
                     )}
                 </div>

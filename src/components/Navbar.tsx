@@ -18,7 +18,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 
 export default function Navbar() {
     const [isSearching, setIsSearching] = useState(false)
-    const serchRef = useRef<HTMLDivElement>(null)
+    const searchRef = useRef<HTMLDivElement>(null)
     const { setTheme } = useTheme()
     const [language, setLanguage] = useState<"fa" | "en">("fa")
 
@@ -53,12 +53,12 @@ export default function Navbar() {
         setNotifications((prev) => prev.filter((n) => n.id !== id))
     }
 
-
+    // بستن جستجو وقتی کلیک بیرون از آن انجام می‌شود
     useEffect(() => {
         if (!isSearching) return;
 
         const handleClickOutside = (e: MouseEvent) => {
-            if (serchRef.current && !serchRef.current.contains(e.target as Node)) {
+            if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
                 setIsSearching(false)
             }
         }
@@ -89,24 +89,26 @@ export default function Navbar() {
         <nav className="w-full sticky inset-x-0 top-0 py-2 h-14 bg-white z-50 shadow-sm dark:bg-slate-900">
             <MaxWidthWrapper>
                 <div className="flex justify-between items-center relative">
+                    {/* ---------- چپ: لوگو و منو ---------- */}
                     {!isSearching && (
                         <div className="flex items-center gap-x-4 sm:gap-x-2">
-                            <Link href="/" className="sm:order-1 sm:mr-3">
+                            <Link href="/" className="sm:order-1 sm:flex items-center gap-x-2 sm:mr-3">
                                 <Image className="w-8 h-8 md:w-9 md:h-9" src={Logo} alt="logo" />
+                                <h1 className="hidden sm:block sm:text-xl md:text-2xl sm:order-2">توسکا</h1>
                             </Link>
-                            <h1 className="hidden sm:block sm:text-xl md:text-2xl sm:order-2">توسکا</h1>
                             <div className="bg-zinc-100 rounded-full p-1.75 sm:order-0 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
-                                <Menu size={24} strokeWidth={1.3}  />
+                                <Menu size={24} strokeWidth={1.3} />
                             </div>
-                            <div className="hidden sm:block relative md:mr-6 sm:order-3">
-                                <Input className="w-64 md:w-98 rounded-md bg-zinc-100 focus-visible:ring-1 focus-visible:ring-blue-400 placeholder:text-sm pr-8" placeholder="جستجو ..." />
+                            <div className="hidden sm:block relative md:mr-3 sm:order-3">
+                                <Input className="w-64 md:w-86 lg:w-98 rounded-md bg-zinc-100 focus-visible:ring-1 focus-visible:ring-blue-400 placeholder:text-sm pr-8" placeholder="جستجو ..." />
                                 <Search size={20} strokeWidth={1.5} className="absolute top-2 right-2 text-blue-400" />
                             </div>
                         </div>
                     )}
 
+                    {/* ---------- وسط/راست: آیکون‌ها و حالت سرچ ---------- */}
                     {isSearching ? (
-                        <div ref={serchRef} className="absolute inset-0 mt-4.75 flex items-center px-1">
+                        <div ref={searchRef} className="absolute inset-0 mt-4.75 flex items-center px-1">
                             <div className="flex items-center w-full relative">
                                 <Search size={20} strokeWidth={1.5} className="absolute right-3 text-blue-400" />
                                 <Input autoFocus className="w-full pl-3 pr-10 rounded-md bg-zinc-100 focus-visible:ring-1 focus-visible:ring-blue-400 placeholder:text-sm" placeholder="جستجو ..." />

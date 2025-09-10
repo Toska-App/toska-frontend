@@ -86,16 +86,21 @@ export default function Navbar() {
 
 
     return (
-        <nav className="w-full sticky inset-x-0 top-0 pt-3 h-14 bg-white z-50 shadow-sm dark:bg-slate-900">
+        <nav className="w-full sticky inset-x-0 top-0 py-2 h-14 bg-white z-50 shadow-sm dark:bg-slate-900">
             <MaxWidthWrapper>
                 <div className="flex justify-between items-center relative">
                     {!isSearching && (
-                        <div className="flex items-center gap-x-4">
-                            <Link href="/">
-                                <Image className="w-7 h-7" src={Logo} alt="logo" />
+                        <div className="flex items-center gap-x-4 sm:gap-x-2">
+                            <Link href="/" className="sm:order-1 sm:mr-3">
+                                <Image className="w-8 h-8 md:w-9 md:h-9" src={Logo} alt="logo" />
                             </Link>
-                            <div className="bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
-                                <Menu size={22} strokeWidth={1.3} />
+                            <h1 className="hidden sm:block sm:text-xl md:text-2xl sm:order-2">توسکا</h1>
+                            <div className="bg-zinc-100 rounded-full p-1.75 sm:order-0 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
+                                <Menu size={24} strokeWidth={1.3}  />
+                            </div>
+                            <div className="hidden sm:block relative md:mr-6 sm:order-3">
+                                <Input className="w-64 md:w-98 rounded-md bg-zinc-100 focus-visible:ring-1 focus-visible:ring-blue-400 placeholder:text-sm pr-8" placeholder="جستجو ..." />
+                                <Search size={20} strokeWidth={1.5} className="absolute top-2 right-2 text-blue-400" />
                             </div>
                         </div>
                     )}
@@ -111,16 +116,16 @@ export default function Navbar() {
                             </div>
                         </div>
                     ) : (
-                        <div className="flex items-center gap-x-3">
-                            <div onClick={() => setIsSearching(true)} className="bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
-                                <Search size={22} strokeWidth={1.3} />
+                        <div className="flex items-center gap-x-3 md:gap-x-5">
+                            <div onClick={() => setIsSearching(true)} className="block sm:hidden bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
+                                <Search size={24} strokeWidth={1.3} />
                             </div>
 
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <div className="bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
-                                        <Sun size={22} strokeWidth={1.5} className="dark:hidden" />
-                                        <Moon size={22} strokeWidth={1.5} className="hidden dark:block" />
+                                        <Sun size={24} strokeWidth={1.5} className="dark:hidden" />
+                                        <Moon size={24} strokeWidth={1.5} className="hidden dark:block" />
                                     </div>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end" style={{ direction: "rtl" }}>
@@ -142,7 +147,7 @@ export default function Navbar() {
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <div className="bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
-                                        <Image className="rounded-full w-5 h-5" src={language === "fa" ? IR : EN} alt={language === "fa" ? "persian" : "english"} />
+                                        <Image className="rounded-full w-5.5 h-5.5" src={language === "fa" ? IR : EN} alt={language === "fa" ? "persian" : "english"} />
                                     </div>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent style={{ direction: "rtl" }}>
@@ -159,7 +164,7 @@ export default function Navbar() {
                                 <DropdownMenuTrigger asChild>
                                     <div className="bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
                                         <div className="relative">
-                                            <BellRing size={22} strokeWidth={1.5} />
+                                            <BellRing size={24} strokeWidth={1.5} />
                                             <span className="absolute -left-1 -top-1.5 bg-green-600 w-1.25 h-1.25 rounded-full"></span>
                                             <span className="absolute -left-1.25 -top-1.75 bg-green-600 w-1.75 h-1.75 rounded-full animate-ping"></span>
                                         </div>
@@ -194,7 +199,7 @@ export default function Navbar() {
 
                                                                 <div className="flex flex-col space-y-2">
                                                                     <p className="text-[13px]">{n.text}</p>
-                                                                    <span className="text-[10px] dark:text-gray-500">{n.time}</span>
+                                                                    <span className="text-[10px] dark:text-gray-400">{n.time}</span>
                                                                 </div>
                                                             </div>
 
@@ -233,7 +238,7 @@ export default function Navbar() {
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <div className="transition-all cursor-pointer">
-                                        <Image src={UserProfile} className="rounded-full w-9 h-9 grayscale-50 hover:grayscale-0" alt="profile" width={36} height={36} />
+                                        <Image src={UserProfile} className="rounded-full w-10 h-10 grayscale-50 hover:grayscale-0" alt="profile" width={36} height={36} />
                                     </div>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="start" className="w-56 p-2 shadow-lg rounded-lgl" style={{ direction: "rtl" }}>

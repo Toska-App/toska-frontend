@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import MaxWidthWrapper from "./MaxWidthWrapper"
 import Logo from "../../public/images/logo/logo.svg"
-import { BellRing, Menu, Search, Sun, X, Moon, Laptop, User, Mail, LockKeyhole, LogOut } from "lucide-react"
+import { BellRing, Menu, Search, Sun, X, Moon, Laptop, User, Mail, LockKeyhole, LogOut, Calendar, CheckSquare, MessageCircle, ClipboardPen, MessageCircleMore } from "lucide-react"
 import Link from "next/link"
 import IR from "../../public/images/IR.svg"
 import EN from "../../public/images/EN.svg"
@@ -95,11 +95,14 @@ export default function Navbar() {
                     <div className="flex justify-between items-center relative">
                         {/* ---------- چپ: لوگو و منو ---------- */}
                         {!isSearching && (
-                            <div className="flex items-center gap-x-4 sm:gap-x-2">
-                                <Link href="/" className="sm:order-1 sm:flex items-center gap-x-2 sm:mr-3">
-                                    <Image className="w-8 h-8 md:w-9 md:h-9" src={Logo} alt="logo" />
-                                    <h1 className="hidden sm:block sm:text-xl md:text-2xl sm:order-2">توسکا</h1>
-                                </Link>
+                            <div className="flex items-center gap-x-4">
+                                {/* لوگو و نام - فقط زمانی نمایش داده می‌شود که در موبایل/تبلت باشیم یا در دسکتاپ sidebar بسته باشد */}
+                                <div className={`${isDesktopSidebarOpen ? 'lg:hidden' : 'flex'} flex items-center gap-x-2 sm:mr-3`}>
+                                    <Link href="/" className="flex items-center gap-x-2">
+                                        <Image className="w-8 h-8 md:w-9 md:h-9" src={Logo} alt="logo" />
+                                        <h1 className="hidden sm:block sm:text-xl md:text-2xl">توسکا</h1>
+                                    </Link>
+                                </div>
 
                                 {/* دکمه منو برای موبایل و تبلت */}
                                 <div className="lg:hidden">
@@ -115,17 +118,27 @@ export default function Navbar() {
                                 {/* دکمه منو برای دسکتاپ - فقط زمانی که sidebar بسته است */}
                                 <div className="hidden lg:block">
                                     {!isDesktopSidebarOpen && (
-                                        <button
-                                            onClick={() => setIsDesktopSidebarOpen(true)}
-                                            className="bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800"
-                                        >
+                                        <button onClick={() => setIsDesktopSidebarOpen(true)} className="bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
                                             <Menu size={24} strokeWidth={1.3} />
                                         </button>
                                     )}
                                 </div>
 
-                                <div className="hidden sm:block relative md:mr-3 sm:order-3">
-                                    <Input className="w-64 md:w-86 lg:w-92 xl:w-98 rounded-md bg-zinc-100 focus-visible:ring-1 focus-visible:ring-blue-400 placeholder:text-sm pr-8" placeholder="جستجو ..." />
+                                <div className="lg:flex items-center gap-x-3 hidden">
+                                    <div className="bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
+                                        <Calendar size={24} strokeWidth={1.3} />
+                                    </div>
+                                    <div className="bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
+                                        <ClipboardPen size={24} strokeWidth={1.3} />
+                                    </div>
+                                    <div className="bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
+                                        <MessageCircleMore size={24} strokeWidth={1.3} />
+                                    </div>
+                                </div>
+
+                                {/* فیلد جستجوی دسکتاپ */}
+                                <div className="hidden sm:block relative">
+                                    <Input className="w-55 md:w-76 lg:w-88 xl:w-98 rounded-md bg-zinc-100 focus-visible:ring-1 focus-visible:ring-blue-400 placeholder:text-sm pr-8 dark:bg-slate-700 dark:border-slate-600" placeholder="جستجو ..." />
                                     <Search size={20} strokeWidth={1.5} className="absolute top-2 right-2 text-blue-400" />
                                 </div>
                             </div>
@@ -136,18 +149,20 @@ export default function Navbar() {
                             <div ref={searchRef} className="absolute inset-0 mt-4.75 flex items-center px-1">
                                 <div className="flex items-center w-full relative">
                                     <Search size={20} strokeWidth={1.5} className="absolute right-3 text-blue-400" />
-                                    <Input autoFocus className="w-full pl-3 pr-10 rounded-md bg-zinc-100 focus-visible:ring-1 focus-visible:ring-blue-400 placeholder:text-sm" placeholder="جستجو ..." />
-                                    <button onClick={() => setIsSearching(false)} className="absolute left-3 text-zinc-500 hover:text-zinc-700 transition-colors cursor-pointer">
-                                        <X className="border-2 border-zinc-500 hover:text-zinc-700 rounded-full" size={20} strokeWidth={1.5} />
+                                    <Input autoFocus className="w-full pl-3 pr-10 rounded-md bg-zinc-100 focus-visible:ring-1 focus-visible:ring-blue-400 placeholder:text-sm dark:bg-slate-700 dark:border-slate-600" placeholder="جستجو ..." />
+                                    <button onClick={() => setIsSearching(false)} className="absolute left-3 text-zinc-300 hover:text-zinc-700 transition-colors cursor-pointer">
+                                        <X className="border-2 border-zinc-500 hover:text-zinc-700 rounded-full dark:border-zinc-400 dark:hover:text-zinc-300" size={20} strokeWidth={1.5} />
                                     </button>
                                 </div>
                             </div>
                         ) : (
-                            <div className="flex items-center gap-x-3 md:gap-x-5">
+                            <div className="flex items-center gap-x-4">
+                                {/* آیکون جستجو برای موبایل */}
                                 <div onClick={() => setIsSearching(true)} className="block sm:hidden bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
                                     <Search size={24} strokeWidth={1.3} />
                                 </div>
 
+                                {/* تنظیمات تم */}
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
                                         <div className="bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
@@ -171,6 +186,7 @@ export default function Navbar() {
                                     </DropdownMenuContent>
                                 </DropdownMenu>
 
+                                {/* تنظیمات زبان */}
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
                                         <div className="bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
@@ -187,6 +203,7 @@ export default function Navbar() {
                                     </DropdownMenuContent>
                                 </DropdownMenu>
 
+                                {/* اعلان‌ها */}
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
                                         <div className="bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
@@ -262,10 +279,11 @@ export default function Navbar() {
                                     </DropdownMenuContent>
                                 </DropdownMenu>
 
+                                {/* پروفایل کاربر */}
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
                                         <div className="transition-all cursor-pointer">
-                                            <Image src={UserProfile} className="rounded-full w-10 h-10 grayscale-50 hover:grayscale-0" alt="profile" width={36} height={36} />
+                                            <Image src={UserProfile} className="rounded-full w-10 h-10 grayscale-50 hover:grayscale-0 transition-all duration-200" alt="profile" width={36} height={36} />
                                         </div>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent align="start" className="w-56 p-2 shadow-lg rounded-lgl" style={{ direction: "rtl" }}>

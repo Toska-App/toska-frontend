@@ -1,6 +1,6 @@
 "use client"
 
-import { BarChart3, ChevronLeft, LayoutDashboard, Menu, TrendingUp } from "lucide-react";
+import { ChevronLeft, LayoutDashboard, Menu } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Logo from "../../public/images/logo/logo.svg";
@@ -41,6 +41,7 @@ export default function Sidebar({ setIsOpen, isOpen, isDesktop = false, isDeskto
         };
     }, [isOpen, setIsOpen, isDesktop]);
 
+
     // بستن منوی داشبورد وقتی sidebar بسته می‌شود
     useEffect(() => {
         if (isDesktop) {
@@ -54,21 +55,19 @@ export default function Sidebar({ setIsOpen, isOpen, isDesktop = false, isDeskto
         }
     }, [isOpen, isDesktop, isDesktopOpen]);
 
+
     if (isDesktop) {
         return (
             <>
                 {/* Sidebar دسکتاپ */}
-                <aside className={`fixed inset-y-0 right-0 w-80 lg:w-68 xl:w-72 bg-white shadow-sm transform transition-transform duration-300 ease-in-out z-60 dark:bg-slate-900 ${isDesktopOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+                <aside className={`fixed inset-y-0 right-0 w-68 bg-white shadow-sm transform transition-transform duration-300 ease-in-out z-60 dark:bg-slate-900 ${isDesktopOpen ? 'translate-x-0' : 'translate-x-full'}`}>
                     <div className="p-4">
                         <div className="flex justify-between items-center mb-4">
                             <div className="flex items-center gap-x-3">
                                 <Image src={Logo} className="w-8 h-8" alt="logo" />
                                 <h3 className="text-2xl font-medium dark:text-white">توسکا</h3>
                             </div>
-                            <button
-                                onClick={() => setIsDesktopOpen && setIsDesktopOpen(false)}
-                                className="p-1 rounded-full hover:bg-zinc-100 dark:hover:bg-slate-800 transition-colors rtl:rotate-180 cursor-pointer"
-                            >
+                            <button onClick={() => setIsDesktopOpen && setIsDesktopOpen(false)} className="p-1 rounded-full hover:bg-zinc-100 dark:hover:bg-slate-800 transition-colors rtl:rotate-180 cursor-pointer">
                                 <svg className="m-auto h-5 w-5" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M13 19L7 12L13 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
                                     <path opacity="0.5" d="M16.9998 19L10.9998 12L16.9998 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
@@ -120,7 +119,7 @@ export default function Sidebar({ setIsOpen, isOpen, isDesktop = false, isDeskto
         <>
             {/* دکمه باز کردن Sidebar موبایل */}
             <button onClick={() => setIsOpen(true)} data-sidebar-trigger className="bg-zinc-100 rounded-full p-1.75 sm:order-0 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
-                <Menu size={24} strokeWidth={1.3} />
+                <Menu size={22} strokeWidth={1.3} />
             </button>
 
             {/* Backdrop - پس‌زمینه سیاه شفاف */}
@@ -129,7 +128,7 @@ export default function Sidebar({ setIsOpen, isOpen, isDesktop = false, isDeskto
             )}
 
             {/* Sidebar موبایل */}
-            <aside className={`fixed inset-y-0 right-0 w-[55vw] sm:w-80 md:w-96 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 dark:bg-slate-900 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+            <aside className={`fixed inset-y-0 right-0 w-[52vw] sm:w-80 md:w-96 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 dark:bg-slate-900 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
                 <div className="p-4">
                     <div className="flex justify-between items-center mb-4">
                         <div className="flex items-center gap-x-3">

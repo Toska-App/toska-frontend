@@ -90,14 +90,14 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className={`w-full sticky inset-x-0 top-0 py-2 h-14 bg-white z-50 shadow-xs dark:bg-slate-900 transition-all duration-300 ${isDesktopSidebarOpen ? 'lg:pr-55 xl:pr-66' : ''}`}>
+            <nav className={`w-full sticky inset-x-0 top-0 py-2 h-14 bg-white z-50 shadow-xs dark:bg-slate-900 transition-all duration-300 ${isDesktopSidebarOpen ? 'lg:pr-62 xl:pr-66' : ''}`}>
                 <MaxWidthWrapper>
                     <div className="flex justify-between items-center relative">
                         {/* ---------- چپ: لوگو و منو ---------- */}
                         {!isSearching && (
-                            <div className="flex items-center gap-x-4">
-                                {/* لوگو و نام - فقط زمانی نمایش داده می‌شود که در موبایل/تبلت باشیم یا در دسکتاپ sidebar بسته باشد */}
-                                <div className={`${isDesktopSidebarOpen ? 'lg:hidden' : 'flex'} flex items-center gap-x-2 sm:mr-3`}>
+                            <div className="flex items-center gap-x-3">
+                                {/* لوگو و نام فقط زمانی نمایش داده می‌شود که در موبایل/تبلت باشیم یا در دسکتاپ sidebar بسته باشد */}
+                                <div className={`${isDesktopSidebarOpen ? 'lg:hidden' : 'flex items-center'}`}>
                                     <Link href="/" className="flex items-center gap-x-2">
                                         <Image className="w-8 h-8 md:w-9 md:h-9" src={Logo} alt="logo" />
                                         <h1 className="hidden sm:block sm:text-xl md:text-2xl">توسکا</h1>
@@ -115,25 +115,25 @@ export default function Navbar() {
                                     />
                                 </div>
 
-                                {/* دکمه منو برای دسکتاپ - فقط زمانی که sidebar بسته است */}
+                                {/* دکمه منو برای دسکتاپ فقط زمانی که sidebar بسته است */}
                                 <div className="hidden lg:block">
                                     {!isDesktopSidebarOpen && (
                                         <button onClick={() => setIsDesktopSidebarOpen(true)} className="bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
-                                            <Menu size={24} strokeWidth={1.3} />
+                                            <Menu size={22} strokeWidth={1.3} />
                                         </button>
                                     )}
                                 </div>
 
                                 <div className="lg:flex items-center gap-x-3 hidden">
-                                    <div className="bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
-                                        <Calendar size={24} strokeWidth={1.3} />
-                                    </div>
-                                    <div className="bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
-                                        <ClipboardPen size={24} strokeWidth={1.3} />
-                                    </div>
-                                    <div className="bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
-                                        <MessageCircleMore size={24} strokeWidth={1.3} />
-                                    </div>
+                                    <Link href="/calender" className="bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
+                                        <Calendar size={22} strokeWidth={1.3} />
+                                    </Link>
+                                    <Link href="/todolist" className="bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
+                                        <ClipboardPen size={22} strokeWidth={1.3} />
+                                    </Link>
+                                    <Link href="/chat" className="bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
+                                        <MessageCircleMore size={22} strokeWidth={1.3} />
+                                    </Link>
                                 </div>
 
                                 {/* فیلد جستجوی دسکتاپ */}
@@ -150,24 +150,24 @@ export default function Navbar() {
                                 <div className="flex items-center w-full relative">
                                     <Search size={20} strokeWidth={1.5} className="absolute right-3 text-blue-400" />
                                     <Input autoFocus className="w-full pl-3 pr-10 rounded-md bg-zinc-100 focus-visible:ring-1 focus-visible:ring-blue-400 placeholder:text-sm dark:bg-slate-700 dark:border-slate-600" placeholder="جستجو ..." />
-                                    <button onClick={() => setIsSearching(false)} className="absolute left-3 text-zinc-300 hover:text-zinc-700 transition-colors cursor-pointer">
+                                    <button onClick={() => setIsSearching(false)} className="absolute left-3 text-zinc-400 hover:text-zinc-700 transition-colors cursor-pointer">
                                         <X className="border-2 border-zinc-500 hover:text-zinc-700 rounded-full dark:border-zinc-400 dark:hover:text-zinc-300" size={20} strokeWidth={1.5} />
                                     </button>
                                 </div>
                             </div>
                         ) : (
-                            <div className="flex items-center gap-x-4">
+                            <div className="flex items-center gap-x-3">
                                 {/* آیکون جستجو برای موبایل */}
                                 <div onClick={() => setIsSearching(true)} className="block sm:hidden bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
-                                    <Search size={24} strokeWidth={1.3} />
+                                    <Search size={22} strokeWidth={1.3} />
                                 </div>
 
                                 {/* تنظیمات تم */}
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
                                         <div className="bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
-                                            <Sun size={24} strokeWidth={1.5} className="dark:hidden" />
-                                            <Moon size={24} strokeWidth={1.5} className="hidden dark:block" />
+                                            <Sun size={22} strokeWidth={1.3} className="dark:hidden" />
+                                            <Moon size={22} strokeWidth={1.3} className="hidden dark:block" />
                                         </div>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent align="end" style={{ direction: "rtl" }}>
@@ -208,9 +208,9 @@ export default function Navbar() {
                                     <DropdownMenuTrigger asChild>
                                         <div className="bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
                                             <div className="relative">
-                                                <BellRing size={24} strokeWidth={1.5} />
-                                                <span className="absolute -left-1 -top-1.5 bg-green-600 w-1.25 h-1.25 rounded-full"></span>
-                                                <span className="absolute -left-1.25 -top-1.75 bg-green-600 w-1.75 h-1.75 rounded-full animate-ping"></span>
+                                                <BellRing size={22} strokeWidth={1.3} />
+                                                <span className="absolute -left-0.75 -top-1.25 bg-green-600 w-1.25 h-1.25 rounded-full"></span>
+                                                <span className="absolute -left-1 -top-1.75 bg-green-600 w-1.75 h-1.75 rounded-full animate-ping"></span>
                                             </div>
                                         </div>
                                     </DropdownMenuTrigger>
@@ -274,7 +274,6 @@ export default function Navbar() {
                                                     </div>
                                                 </>
                                             )}
-
                                         </div>
                                     </DropdownMenuContent>
                                 </DropdownMenu>
@@ -283,7 +282,7 @@ export default function Navbar() {
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
                                         <div className="transition-all cursor-pointer">
-                                            <Image src={UserProfile} className="rounded-full w-10 h-10 grayscale-50 hover:grayscale-0 transition-all duration-200" alt="profile" width={36} height={36} />
+                                            <Image src={UserProfile} className="rounded-full w-9.5 h-9.5 grayscale-50 hover:grayscale-0 transition-all duration-200" alt="profile" width={36} height={36} />
                                         </div>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent align="start" className="w-56 p-2 shadow-lg rounded-lgl" style={{ direction: "rtl" }}>
@@ -292,7 +291,7 @@ export default function Navbar() {
                                                 <Image src={UserProfile} className="rounded-lg w-10 h-10 object-cover" width={40} height={40} alt="profile" />
                                                 <div className="flex flex-col">
                                                     <span className="text-[13px] font-medium">محمد متین علی اکبری</span>
-                                                    <span className="text-[12px] text-zinc-500">example@gmail.com</span>
+                                                    <span className="text-[12.5px] text-zinc-500">example@gmail.com</span>
                                                 </div>
                                             </div>
                                         </DropdownMenuItem>

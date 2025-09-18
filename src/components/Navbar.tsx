@@ -10,8 +10,8 @@ import { Input } from "@/components/ui/input"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import Sidebar from "./Sidebar"
 import Logo from "../../public/images/logo/logo.svg"
-import { LANGUAGES, QUICK_ACTIONS, PROFILE_MENU_ITEMS, INITIAL_NOTIFICATIONS, CURRENT_USER } from "@/types/navbar";
-import { Notification } from "@/types/navbar";
+import { LANGUAGES, QUICK_ACTIONS, PROFILE_MENU_ITEMS, INITIAL_NOTIFICATIONS, CURRENT_USER } from "@/types/navbar.types";
+import { Notification } from "@/types/navbar.types";
 
 
 // کامپوننت فیلد جستجو
@@ -95,10 +95,10 @@ const ThemeToggle = () => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <button className="bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800" role="button" aria-label="تغییر تم">
+                <div className="bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800" role="button" aria-label="تغییر تم">
                     <Sun size={22} strokeWidth={1.3} className="dark:hidden" />
                     <Moon size={22} strokeWidth={1.3} className="hidden dark:block" />
-                </button>
+                </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" style={{ direction: "rtl" }}>
                 <DropdownMenuItem onClick={() => setTheme("light")}>
@@ -126,9 +126,9 @@ const LanguageSelector = ({ language, setLanguage }: { language: "fa" | "en"; se
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <button className="bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
+                <div className="bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
                     <Image className="rounded-full w-5.5 h-5.5" src={currentLanguage?.flag ?? LANGUAGES[0].flag} alt={currentLanguage?.name || "زبان"} />
-                </button>
+                </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent style={{ direction: "rtl" }}>
                 {LANGUAGES.map(lang => (
@@ -159,9 +159,9 @@ const NotificationItem = ({ notification, onRemove }: { notification: Notificati
         </div>
 
         {/* دکمه حذف اعلان */}
-        <button onClick={() => onRemove(notification.id)} className="ml-2 flex items-center justify-center w-6 h-6 rounded-full bg-zinc-100 hover:bg-zinc-200 dark:bg-slate-700 dark:hover:bg-slate-800 transition-colors">
+        <div onClick={() => onRemove(notification.id)} className="ml-2 flex items-center justify-center w-6 h-6 rounded-full bg-zinc-100 hover:bg-zinc-200 dark:bg-slate-700 dark:hover:bg-slate-800 transition-colors">
             <X size={14} strokeWidth={2} className="text-zinc-600 dark:text-zinc-300" />
-        </button>
+        </div>
     </div>
 );
 
@@ -170,7 +170,7 @@ const NotificationItem = ({ notification, onRemove }: { notification: Notificati
 const NotificationsDropdown = ({ notifications, onRemoveNotification }: { notifications: Notification[]; onRemoveNotification: (id: number) => void }) => (
     <DropdownMenu>
         <DropdownMenuTrigger asChild>
-            <button className="bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
+            <div className="bg-zinc-100 rounded-full p-1.75 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
                 <div className="relative">
                     <BellRing size={22} strokeWidth={1.3} />
                     {/* نشان وجود اعلان جدید */}
@@ -181,7 +181,7 @@ const NotificationsDropdown = ({ notifications, onRemoveNotification }: { notifi
                         </>
                     )}
                 </div>
-            </button>
+            </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start" style={{ direction: "rtl" }} className="w-84 p-3">
             <div className="flex flex-col gap-y-2">
@@ -207,7 +207,7 @@ const NotificationsDropdown = ({ notifications, onRemoveNotification }: { notifi
 
                             {/* دکمه مشاهده همه اعلانات */}
                             <Link href="/notifications">
-                                <span className="text-[14px] text-white dark:bg-blue-600 bg-blue-500 rounded-md mt-2 p-2 block text-center hover:bg-blue-700 transition-colors">
+                                <span className="text-[14px] text-white dark:bg-blue-600 bg-blue-500 rounded-md mt-2 p-1.5 block text-center hover:bg-blue-700 transition-colors">
                                     مشاهده همه اعلانات
                                 </span>
                             </Link>
@@ -239,9 +239,9 @@ const NotificationsDropdown = ({ notifications, onRemoveNotification }: { notifi
 const ProfileDropdown = () => (
     <DropdownMenu>
         <DropdownMenuTrigger asChild>
-            <button className="transition-all cursor-pointer">
+            <div className="transition-all cursor-pointer">
                 <Image className="rounded-full w-9.5 h-9.5 grayscale-50 hover:grayscale-0 transition-all duration-200" src={CURRENT_USER.avatar} width={36} height={36} alt="profile" />
-            </button>
+            </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start" className="w-56 p-2 shadow-lg rounded-lg" style={{ direction: "rtl" }}>
             {/* اطلاعات کاربر */}
@@ -288,7 +288,7 @@ const ProfileDropdown = () => (
 const NavbarLogo = ({ isDesktopSidebarOpen }: { isDesktopSidebarOpen: boolean }) => (
     <div className={`${isDesktopSidebarOpen ? 'lg:hidden' : 'flex items-center'}`}>
         <Link href="/" className="flex items-center gap-x-2">
-            <Image className="w-8 h-8 md:w-9 md:h-9" src={Logo} alt="لوگو توسکا" />
+            <Image className="w-8 h-8 md:w-9 md:h-9" src={Logo} alt="logo" />
             <h1 className="hidden sm:block sm:text-xl md:text-2xl dark:text-white font-medium">
                 توسکا
             </h1>

@@ -5,8 +5,8 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import Logo from "../../public/images/logo/logo.svg";
 import Link from "next/link";
-import { SIDEBAR_MENU_DATA, SIDEBAR_SCROLL_CLASSES } from "@/types/sidebar";
-import { SideBarProps, MenuItem, SubMenuItem } from "@/types/sidebar";
+import { SIDEBAR_MENU_DATA, SIDEBAR_SCROLL_CLASSES } from "@/types/sidebar.types";
+import { SideBarProps, MenuItem, SubMenuItem } from "@/types/sidebar.types";
 
 
 // کامپوننت دکمه بستن sidebar
@@ -25,10 +25,10 @@ const SidebarCloseButton = ({ onClick }: { onClick: () => void }) => (
 const SidebarHeader = ({ onClose }: { onClose: () => void }) => (
     <div className="flex justify-between items-center mb-4">
         {/* لوگو و نام برند */}
-        <div className="flex items-center gap-x-3">
+        <Link href="/" className="flex items-center gap-x-3">
             <Image src={Logo} className="w-8 h-8" alt="toska-logo" />
             <h3 className="text-2xl font-medium dark:text-white">توسکا</h3>
-        </div>
+        </Link>
 
         {/* دکمه بستن sidebar */}
         <SidebarCloseButton onClick={onClose} />
@@ -165,12 +165,7 @@ const SidebarContent = ({ onClose }: { onClose: () => void }) => {
 
 // دکمه باز کردن sidebar در نسخه موبایل
 const MobileTriggerButton = ({ onClick }: { onClick: () => void }) => (
-    <button
-        onClick={onClick}
-        data-sidebar-trigger
-        className="bg-zinc-100 rounded-full p-1.75 sm:order-0 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800"
-        aria-label="باز کردن منو"
-    >
+    <button onClick={onClick} data-sidebar-trigger className="bg-zinc-100 rounded-full p-1.75 sm:order-0 cursor-pointer hover:bg-zinc-200 hover:text-blue-400 transition-colors dark:bg-slate-700 dark:hover:bg-slate-800">
         <Menu size={22} strokeWidth={1.3} />
     </button>
 );
@@ -221,7 +216,6 @@ export default function Sidebar({ setIsOpen, isOpen, isDesktop = false, isDeskto
 
     //  تابع بستن sidebar
     //  برای نسخه دسکتاپ از setIsDesktopOpen استفاده می‌کند
-
     const handleClose = () => {
         if (isDesktop && setIsDesktopOpen) {
             setIsDesktopOpen(false);
@@ -239,6 +233,7 @@ export default function Sidebar({ setIsOpen, isOpen, isDesktop = false, isDeskto
             document.head.appendChild(style);
         }
     }, []);
+
 
     // نسخه دسکتاپ sidebar
     if (isDesktop) {

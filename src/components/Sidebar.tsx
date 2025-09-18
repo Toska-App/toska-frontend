@@ -2,11 +2,13 @@
 
 import {
     BatteryPlus,
+    BookOpenText,
     CalendarClock,
     ChevronLeft,
     CircleDollarSign,
     LayoutDashboard,
     ListTodo,
+    LockKeyhole,
     MailCheck,
     MapPinned,
     Menu,
@@ -138,8 +140,28 @@ const MENU_DATA: MenuSection[] = [
                     { id: "user-account", title: "تنظیمات حساب", href: "/user-account" },
                 ]
             },
+            {
+                id: "pages",
+                title: "صفحات",
+                icon: BookOpenText,
+                children: [
+                    { id: "contact-us", title: "تماس با ما", href: "/contact-us" },
+                    { id: "faq", title: "تماس با ما", href: "/page-faq" },
+                ]
+            },
+            {
+                id: "authentication",
+                title: "احراز هویت",
+                icon: LockKeyhole,
+                children: [
+                    { id: "login", title: "صفحه لاگین", href: "/signin" },
+                    { id: "register", title: "صفحه ثبت نام", href: "/signup" },
+                    { id: "lockscreen", title: "صفحه بازگشایی", href: "/lockscreen" },
+                    { id: "password-reset", title: "فراموشی رمز عبور", href: "/password-reset" },
+                ]
+            }
         ]
-    }
+    },
 ];
 
 // Components
@@ -214,14 +236,14 @@ const MenuItemComponent = ({
                 >
                     <div className="flex items-center gap-x-2">
                         <IconComponent
-                            className="fill-gray-300 text-gray-400 group-hover:fill-indigo-300 group-hover:text-indigo-400 transition duration-200"
-                            size={18}
+                            className="fill-gray-300 text-gray-400 group-hover:fill-indigo-300 group-hover:text-indigo-400 dark:group-hover:fill-indigo-400 dark:group-hover:text-indigo-500 transition duration-200"
+                            size={16}
                             strokeWidth={2}
                         />
-                        <h4 className="text-[15px] text-gray-700 dark:text-gray-200">{item.title}</h4>
+                        <h4 className="text-[13.5px] text-gray-700 dark:text-gray-200">{item.title}</h4>
                     </div>
                     <ChevronLeft
-                        size={17}
+                        size={15}
                         className={`text-gray-700 dark:text-gray-200 transition-transform duration-300 ease-in-out ${isSubmenuOpen ? 'rotate-270' : 'rotate-0'
                             }`}
                     />
@@ -234,11 +256,11 @@ const MenuItemComponent = ({
     return (
         <div className="flex items-center gap-x-2 group p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-slate-800 cursor-pointer">
             <IconComponent
-                className="fill-gray-300 text-gray-400 group-hover:fill-indigo-300 group-hover:text-indigo-400 transition duration-200"
-                size={18}
+                className="fill-gray-300 text-gray-400 group-hover:fill-indigo-300 group-hover:text-indigo-400 dark:group-hover:fill-indigo-400 dark:group-hover:text-indigo-500 transition duration-200"
+                size={16}
                 strokeWidth={2}
             />
-            <Link href={item.href || '#'} className="text-[15px] text-gray-700 dark:text-gray-200">
+            <Link href={item.href || '#'} className="text-[13.5px] text-gray-700 dark:text-gray-200">
                 {item.title}
             </Link>
         </div>
@@ -348,7 +370,7 @@ export default function Sidebar({
 
     if (isDesktop) {
         return (
-            <aside className={`fixed inset-y-0 right-0 w-68 bg-white shadow-sm transform transition-transform duration-300 ease-in-out z-60 dark:bg-slate-900 ${isDesktopOpen ? 'translate-x-0' : 'translate-x-full'
+            <aside className={`fixed overflow-y-auto inset-y-0 right-0 w-68 bg-white shadow-sm transform transition-transform duration-300 ease-in-out z-60 dark:bg-slate-900 ${isDesktopOpen ? 'translate-x-0' : 'translate-x-full'
                 }`}>
                 <SidebarContent onClose={handleClose} />
             </aside>

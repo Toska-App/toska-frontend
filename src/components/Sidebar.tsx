@@ -17,51 +17,26 @@ import {
     SubMenuItem
 } from "@/types/sidebar";
 
-/**
- * کامپوننت دکمه بستن sidebar
- * آیکون بستن با انیمیشن hover
- */
+
+// کامپوننت دکمه بستن sidebar
+// آیکون بستن با انیمیشن hover
+
 const SidebarCloseButton = ({ onClick }: { onClick: () => void }) => (
-    <button
-        onClick={onClick}
-        className="p-1 rounded-full hover:bg-zinc-100 dark:hover:bg-slate-800 transition-colors rtl:rotate-180 cursor-pointer"
-        aria-label="بستن منو"
-    >
-        <svg
-            className="m-auto h-5 w-5"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
-            <path
-                d="M13 19L7 12L13 5"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            />
-            <path
-                opacity="0.5"
-                d="M16.9998 19L10.9998 12L16.9998 5"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            />
+    <button onClick={onClick} className="p-1 rounded-full hover:bg-zinc-100 dark:hover:bg-slate-800 transition-colors rtl:rotate-180 cursor-pointer" aria-label="بستن منو">
+        <svg className="m-auto h-5 w-5" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 19L7 12L13 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path opacity="0.5" d="M16.9998 19L10.9998 12L16.9998 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
     </button>
 );
 
-/**
- * کامپوننت هدر sidebar شامل لوگو و دکمه بستن
- */
+
+// کامپوننت هدر sidebar شامل لوگو و دکمه بستن
 const SidebarHeader = ({ onClose }: { onClose: () => void }) => (
     <div className="flex justify-between items-center mb-4">
         {/* لوگو و نام برند */}
         <div className="flex items-center gap-x-3">
-            <Image src={Logo} className="w-8 h-8" alt="لوگو توسکا" />
+            <Image src={Logo} className="w-8 h-8" alt="toska-logo" />
             <h3 className="text-2xl font-medium dark:text-white">توسکا</h3>
         </div>
 
@@ -70,10 +45,9 @@ const SidebarHeader = ({ onClose }: { onClose: () => void }) => (
     </div>
 );
 
-/**
- * کامپوننت عنوان بخش‌های مختلف منو
- * مثل "برنامه ها" یا "کاربران و صفحات"
- */
+
+//  کامپوننت عنوان بخش‌های مختلف منو
+//  مثل "برنامه ها" یا "کاربران و صفحات"
 const SectionTitle = ({ title }: { title: string }) => (
     <div className="mt-4 mb-3 -mx-5">
         <div className="py-2 px-5 bg-sidebar-title-light dark:bg-sidebar-title-dark">
@@ -82,20 +56,15 @@ const SectionTitle = ({ title }: { title: string }) => (
     </div>
 );
 
-/**
- * کامپوننت نمایش زیرآیتم‌های منو (submenu)
- * با انیمیشن باز و بسته شدن
- */
+
+//  کامپوننت نمایش زیرآیتم‌های منو (submenu)
+// با انیمیشن باز و بسته شدن
+
 const SubMenuItems = ({ items, isOpen }: { items: SubMenuItem[], isOpen: boolean }) => (
-    <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96' : 'max-h-0'
-        }`}>
+    <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96' : 'max-h-0'}`}>
         <ul className="mt-2 mr-6 space-y-1">
             {items.map(item => (
-                <Link
-                    key={item.id}
-                    href={item.href}
-                    className="group flex items-center gap-x-2 p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-slate-800 cursor-pointer transition-colors duration-200"
-                >
+                <Link key={item.id} className="group flex items-center gap-x-2 p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-slate-800 cursor-pointer transition-colors duration-200" href={item.href}>
                     {/* خط کوچک نشان‌دهنده زیرآیتم */}
                     <div className="w-2 h-[1px] bg-gray-400" />
                     <li className="text-[13px] text-gray-600 dark:text-gray-300 group-hover:text-blue-500 dark:group-hover:text-blue-500 transition-colors">
@@ -107,19 +76,11 @@ const SubMenuItems = ({ items, isOpen }: { items: SubMenuItem[], isOpen: boolean
     </div>
 );
 
-/**
- * کامپوننت اصلی برای نمایش هر آیتم منو
- * شامل آیکون، متن و مدیریت زیرمنوها
- */
-const MenuItemComponent = ({
-    item,
-    openSubmenus,
-    toggleSubmenu
-}: {
-    item: MenuItem,
-    openSubmenus: Set<string>,
-    toggleSubmenu: (id: string) => void
-}) => {
+
+// کامپوننت اصلی برای نمایش هر آیتم منو
+// شامل آیکون، متن و مدیریت زیرمنوها
+
+const MenuItemComponent = ({ item, openSubmenus, toggleSubmenu }: { item: MenuItem, openSubmenus: Set<string>, toggleSubmenu: (id: string) => void }) => {
     // بررسی اینکه آیا این آیتم زیرمنو دارد یا نه
     const hasChildren = item.children && item.children.length > 0;
     const isSubmenuOpen = openSubmenus.has(item.id);
@@ -130,31 +91,16 @@ const MenuItemComponent = ({
         return (
             <div>
                 {/* آیتم اصلی که کلیک روی آن زیرمنو را باز/بسته می‌کند */}
-                <div
-                    onClick={() => toggleSubmenu(item.id)}
-                    className="group flex items-center justify-between p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-slate-800 cursor-pointer transition-all duration-200"
-                    role="button"
-                    tabIndex={0}
-                    aria-expanded={isSubmenuOpen}
-                    aria-haspopup="true"
-                >
+                <div onClick={() => toggleSubmenu(item.id)} className="group flex items-center justify-between p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-slate-800 cursor-pointer transition-all duration-200" tabIndex={0} role="button" aria-expanded={isSubmenuOpen} aria-haspopup="true">
                     <div className="flex items-center gap-x-2">
-                        <IconComponent
-                            className="fill-gray-300 text-gray-400 group-hover:fill-indigo-300 group-hover:text-indigo-400 dark:group-hover:fill-indigo-400 dark:group-hover:text-indigo-500 transition duration-200"
-                            size={16}
-                            strokeWidth={2}
-                        />
+                        <IconComponent className="fill-gray-300 text-gray-400 group-hover:fill-indigo-300 group-hover:text-indigo-400 dark:group-hover:fill-indigo-400 dark:group-hover:text-indigo-500 transition duration-200" size={16} strokeWidth={2} />
                         <h4 className="text-[13.5px] text-gray-700 dark:text-gray-200">
                             {item.title}
                         </h4>
                     </div>
 
                     {/* فلش نشان‌دهنده وضعیت باز/بسته بودن زیرمنو */}
-                    <ChevronLeft
-                        size={15}
-                        className={`text-gray-700 dark:text-gray-200 transition-transform duration-300 ease-in-out ${isSubmenuOpen ? 'rotate-270' : 'rotate-0'
-                            }`}
-                    />
+                    <ChevronLeft size={15} className={`text-gray-700 dark:text-gray-200 transition-transform duration-300 ease-in-out ${isSubmenuOpen ? 'rotate-270' : 'rotate-0'}`} />
                 </div>
 
                 {/* نمایش زیرآیتم‌ها */}
@@ -166,11 +112,7 @@ const MenuItemComponent = ({
     // اگر آیتم زیرمنو ندارد، نمایش به صورت لینک ساده
     return (
         <div className="flex items-center gap-x-2 group p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-slate-800 cursor-pointer transition-all duration-200">
-            <IconComponent
-                className="fill-gray-300 text-gray-400 group-hover:fill-indigo-300 group-hover:text-indigo-400 dark:group-hover:fill-indigo-400 dark:group-hover:text-indigo-500 transition duration-200"
-                size={16}
-                strokeWidth={2}
-            />
+            <IconComponent className="fill-gray-300 text-gray-400 group-hover:fill-indigo-300 group-hover:text-indigo-400 dark:group-hover:fill-indigo-400 dark:group-hover:text-indigo-500 transition duration-200" size={16} strokeWidth={2} />
             <Link href={item.href || '#'} className="text-[13.5px] text-gray-700 dark:text-gray-200">
                 {item.title}
             </Link>
@@ -178,18 +120,16 @@ const MenuItemComponent = ({
     );
 };
 
-/**
- * کامپوننت اصلی محتوای sidebar
- * شامل هدر، منوها و مدیریت state زیرمنوها
- */
+
+// کامپوننت اصلی محتوای sidebar
+// شامل هدر، منوها و مدیریت state زیرمنوها
 const SidebarContent = ({ onClose }: { onClose: () => void }) => {
     // state برای مدیریت وضعیت باز/بسته بودن زیرمنوها
     const [openSubmenus, setOpenSubmenus] = useState<Set<string>>(new Set());
 
-    /**
-     * تابع toggle کردن وضعیت زیرمنوها
-     * اگر باز است می‌بندد، اگر بسته است باز می‌کند
-     */
+
+    // تابع toggle کردن وضعیت زیرمنوها
+    // اگر باز است می‌بندد، اگر بسته است باز می‌کند
     const toggleSubmenu = (itemId: string) => {
         setOpenSubmenus(prev => {
             const newSet = new Set(prev);
@@ -234,9 +174,8 @@ const SidebarContent = ({ onClose }: { onClose: () => void }) => {
     );
 };
 
-/**
- * دکمه باز کردن sidebar در نسخه موبایل
- */
+
+// دکمه باز کردن sidebar در نسخه موبایل
 const MobileTriggerButton = ({ onClick }: { onClick: () => void }) => (
     <button
         onClick={onClick}
@@ -248,27 +187,17 @@ const MobileTriggerButton = ({ onClick }: { onClick: () => void }) => (
     </button>
 );
 
-/**
- * پس‌زمینه تیره برای نسخه موبایل
- * کلیک روی آن sidebar را می‌بندد
- */
+
+//  پس‌زمینه تیره برای نسخه موبایل
+//  کلیک روی آن sidebar را می‌بندد
 const Backdrop = ({ onClick }: { onClick: () => void }) => (
-    <div
-        onClick={onClick}
-        className="fixed inset-0 bg-black/50 z-40 transition-opacity duration-300"
-        aria-label="بستن منو"
-    />
+    <div onClick={onClick} className="fixed inset-0 bg-black/50 z-40 transition-opacity duration-300" aria-label="بستن منو" />
 );
 
-/**
- * Hook سفارشی برای مدیریت کلیک خارج از sidebar
- * فقط در نسخه موبایل فعال است
- */
-const useClickOutside = (
-    isOpen: boolean,
-    setIsOpen: (open: boolean) => void,
-    isDesktop: boolean
-) => {
+
+// Hook سفارشی برای مدیریت کلیک خارج از sidebar
+// فقط در نسخه موبایل فعال است
+const useClickOutside = (isOpen: boolean, setIsOpen: (open: boolean) => void, isDesktop: boolean) => {
     useEffect(() => {
         // اگر desktop است یا sidebar باز نیست، listener نمی‌گذاریم
         if (isDesktop || !isOpen) return;
@@ -286,7 +215,6 @@ const useClickOutside = (
             document.addEventListener("mousedown", handleClickOutside);
         }, 100);
 
-        // cleanup function
         return () => {
             clearTimeout(timer);
             document.removeEventListener("mousedown", handleClickOutside);
@@ -294,24 +222,18 @@ const useClickOutside = (
     }, [isOpen, setIsOpen, isDesktop]);
 };
 
-/**
- * کامپوننت اصلی Sidebar
- * شامل نسخه‌های موبایل و دسکتاپ
- */
-export default function Sidebar({
-    setIsOpen,
-    isOpen,
-    isDesktop = false,
-    isDesktopOpen = false,
-    setIsDesktopOpen
-}: SideBarProps) {
+
+// کامپوننت اصلی Sidebar
+// شامل نسخه‌های موبایل و دسکتاپ
+
+export default function Sidebar({ setIsOpen, isOpen, isDesktop = false, isDesktopOpen = false, setIsDesktopOpen }: SideBarProps) {
     // استفاده از hook برای مدیریت کلیک خارج از sidebar
     useClickOutside(isOpen, setIsOpen, isDesktop);
 
-    /**
-     * تابع بستن sidebar
-     * برای نسخه دسکتاپ از setIsDesktopOpen استفاده می‌کند
-     */
+
+    //  تابع بستن sidebar
+    //  برای نسخه دسکتاپ از setIsDesktopOpen استفاده می‌کند
+
     const handleClose = () => {
         if (isDesktop && setIsDesktopOpen) {
             setIsDesktopOpen(false);
@@ -320,7 +242,6 @@ export default function Sidebar({
         }
     };
 
-    // تزریق استایل‌های اسکرول سفارشی
     useEffect(() => {
         // بررسی وجود style tag قبلی
         if (!document.getElementById('sidebar-scroll-styles')) {
@@ -334,8 +255,7 @@ export default function Sidebar({
     // نسخه دسکتاپ sidebar
     if (isDesktop) {
         return (
-            <aside className={`fixed overflow-y-auto inset-y-0 right-0 w-68 bg-white shadow-sm transform transition-transform duration-300 ease-in-out z-60 dark:bg-slate-900 sidebar-custom-scroll ${isDesktopOpen ? 'translate-x-0' : 'translate-x-full'
-                }`}>
+            <aside className={`fixed overflow-y-auto inset-y-0 right-0 w-68 bg-white shadow-sm transform transition-transform duration-300 ease-in-out z-60 dark:bg-slate-900 ${isDesktopOpen ? 'translate-x-0' : 'translate-x-full'}`}>
                 <SidebarContent onClose={handleClose} />
             </aside>
         );
@@ -351,8 +271,7 @@ export default function Sidebar({
             {isOpen && <Backdrop onClick={() => setIsOpen(false)} />}
 
             {/* sidebar اصلی */}
-            <aside className={`fixed overflow-y-auto inset-y-0 right-0 w-[52vw] sm:w-80 md:w-96 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 dark:bg-slate-900 sidebar-custom-scroll ${isOpen ? 'translate-x-0' : 'translate-x-full'
-                }`}>
+            <aside className={`fixed overflow-y-auto inset-y-0 right-0 w-[52vw] sm:w-80 md:w-96 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 dark:bg-slate-900 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
                 <SidebarContent onClose={handleClose} />
             </aside>
         </>

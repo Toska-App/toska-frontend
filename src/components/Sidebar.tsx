@@ -5,22 +5,12 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import Logo from "../../public/images/logo/logo.svg";
 import Link from "next/link";
-
-// import types و data از فایل‌های جداگانه
-import {
-    SIDEBAR_MENU_DATA,
-    SIDEBAR_SCROLL_CLASSES
-} from "@/types/sidebar";
-import {
-    SideBarProps,
-    MenuItem,
-    SubMenuItem
-} from "@/types/sidebar";
+import { SIDEBAR_MENU_DATA, SIDEBAR_SCROLL_CLASSES } from "@/types/sidebar";
+import { SideBarProps, MenuItem, SubMenuItem } from "@/types/sidebar";
 
 
 // کامپوننت دکمه بستن sidebar
 // آیکون بستن با انیمیشن hover
-
 const SidebarCloseButton = ({ onClick }: { onClick: () => void }) => (
     <button onClick={onClick} className="p-1 rounded-full hover:bg-zinc-100 dark:hover:bg-slate-800 transition-colors rtl:rotate-180 cursor-pointer" aria-label="بستن منو">
         <svg className="m-auto h-5 w-5" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -59,7 +49,6 @@ const SectionTitle = ({ title }: { title: string }) => (
 
 //  کامپوننت نمایش زیرآیتم‌های منو (submenu)
 // با انیمیشن باز و بسته شدن
-
 const SubMenuItems = ({ items, isOpen }: { items: SubMenuItem[], isOpen: boolean }) => (
     <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96' : 'max-h-0'}`}>
         <ul className="mt-2 mr-6 space-y-1">
@@ -79,7 +68,6 @@ const SubMenuItems = ({ items, isOpen }: { items: SubMenuItem[], isOpen: boolean
 
 // کامپوننت اصلی برای نمایش هر آیتم منو
 // شامل آیکون، متن و مدیریت زیرمنوها
-
 const MenuItemComponent = ({ item, openSubmenus, toggleSubmenu }: { item: MenuItem, openSubmenus: Set<string>, toggleSubmenu: (id: string) => void }) => {
     // بررسی اینکه آیا این آیتم زیرمنو دارد یا نه
     const hasChildren = item.children && item.children.length > 0;
@@ -255,7 +243,7 @@ export default function Sidebar({ setIsOpen, isOpen, isDesktop = false, isDeskto
     // نسخه دسکتاپ sidebar
     if (isDesktop) {
         return (
-            <aside className={`fixed overflow-y-auto inset-y-0 right-0 w-68 bg-white shadow-sm transform transition-transform duration-300 ease-in-out z-60 dark:bg-slate-900 ${isDesktopOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+            <aside className={`fixed overflow-y-auto inset-y-0 right-0 w-68 bg-white shadow-sm transform transition-transform duration-300 ease-in-out z-60 sidebar-custom-scroll dark:bg-slate-900 ${isDesktopOpen ? 'translate-x-0' : 'translate-x-full'}`}>
                 <SidebarContent onClose={handleClose} />
             </aside>
         );
@@ -271,7 +259,7 @@ export default function Sidebar({ setIsOpen, isOpen, isDesktop = false, isDeskto
             {isOpen && <Backdrop onClick={() => setIsOpen(false)} />}
 
             {/* sidebar اصلی */}
-            <aside className={`fixed overflow-y-auto inset-y-0 right-0 w-[52vw] sm:w-80 md:w-96 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 dark:bg-slate-900 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+            <aside className={`fixed overflow-y-auto inset-y-0 right-0 w-[52vw] sm:w-80 md:w-96 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 sidebar-custom-scroll dark:bg-slate-900 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
                 <SidebarContent onClose={handleClose} />
             </aside>
         </>
